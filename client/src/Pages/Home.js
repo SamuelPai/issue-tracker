@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import Modal from "../Components/Modal";
 import axios from "axios";
+// import ReactPaginate from "react-paginate";
 
 export default class Home extends Component {
     
     state = {
-        issues:[]
+        offset: 0,
+        issues:[],
+        originalData: [],
+        perPage: 10,
+        currentPage: 0
+        
     }
     componentDidMount = async () => {
         //make API call here
@@ -16,9 +22,29 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                {this.state.issues.map((issue, index) => (
+                <table border="1">
+                     <thead>
+                         <th>Title</th>
+                         <th>Issue Number</th>
+                         <th>State</th>
+                     </thead>
+                     <tbody>
+                        {
+                          this.state.issues.map((issue, i) => (
+                                <tr>
+                                    <td>{issue.title}</td>
+                                    <td>{issue.number}</td>
+                                    <td>{issue.state}</td>
+                                </tr>
+                            
+                          ))
+                        }
+
+                     </tbody>
+                 </table>  
+                {/* {this.state.issues.map((issue, index) => (
                     <h1>{issue.title}</h1>
-                ))}
+                ))} */}
             </div>
         );
     }
