@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import Modal from "../Components/Modal";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import Table from "../Components/Table";
 
 export default class Home extends PureComponent {
     
@@ -14,7 +14,30 @@ export default class Home extends PureComponent {
         
     }
 
- 
+    handlePageClick = (e) => {
+        const selectedPage = e.selected;
+        const offset = selectedPage * this.state.perPage;
+
+        this.setState({
+            currentPage: selectedPage,
+            offset: offset
+        }, () => {
+            this.loadMoreData()
+        });
+
+    };
+
+    loadMoreData() {
+		const data = this.state.originalData;
+		
+		const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+		this.setState({
+			pageCount: Math.ceil(data.length / this.state.perPage),
+			tableData: slice
+		})
+	
+    }
+
 
     componentDidMount = async () => {
         //make API call here
@@ -34,29 +57,8 @@ export default class Home extends PureComponent {
     render() {
         return (
             <div>
-                <table border="1">
-                     <thead>
-                         <th>Id</th>
-                         <th>Title</th>
-                         <th>Issue Number</th>
-                         <th>State</th>
-                     </thead>
-                     <tbody>
-                        {
-                          this.state.tableData.map((issue, i) => (
-                                <tr>
-                                    <td>{i + 1}</td>
-                                    <td>{issue.title}</td>
-                                    <td>{issue.number}</td>
-                                    <td>{issue.state}</td>
-                                </tr>
-                            
-                          ))
-                        }
-
-                     </tbody>
-                 </table>  
                 
+                <Table data={this.state} />
                  <ReactPaginate
                     previousLabel={"prev"}
                     nextLabel={"next"}
