@@ -11,11 +11,10 @@ export default class Home extends PureComponent {
         originalData: [],
         perPage: 10,
         currentPage: 0
-
     }
 
     handlePageClick = (e) => {
-        console.log(e.selected)
+        
         const selectedPage = e.selected; //starts at 0
         const offset = selectedPage * this.state.perPage; // ex: if 2nd page selected, it would be 1 * 10
         console.log(offset)
@@ -28,13 +27,14 @@ export default class Home extends PureComponent {
 
     };
 
-    loadMoreData() {
+    loadMoreData = () => {
         const data = this.state.originalData;
         const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
         this.setState({
             pageCount: Math.ceil(data.length / this.state.perPage),
             tableData: slice
         })
+        console.log("Page Count", this.state.pageCount)
 
     }
 
@@ -55,6 +55,7 @@ export default class Home extends PureComponent {
 
         });
     }
+
     render() {
         return (
             <div id="bodyData">
