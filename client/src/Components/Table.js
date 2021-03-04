@@ -6,7 +6,7 @@ export default function Table(props) {
     }
     return (
         <React.Fragment>
-            <table border="1">
+            <table id="issueTable" border="1">
                 <thead>
                     <th>Title</th>
                     <th>Issue Number</th>
@@ -16,9 +16,9 @@ export default function Table(props) {
                     {
                         props.data.tableData.map((issue, i) => (
                             <tr onClick={() => handleClick(issue)}>
-                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={"#test1"+i}>{issue.title}</button></td>
-                                <td>{issue.number}</td>
-                                <td>{issue.state}</td>
+                                <td><button id="issueBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={"#test1"+i}>{issue.title}</button></td>
+                                <td class="td">{issue.number}</td>
+                                <td class="td">{issue.state}</td>
 
                                 <div class="modal fade" id={"test1"+i} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">

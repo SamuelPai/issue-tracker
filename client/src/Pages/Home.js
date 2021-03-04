@@ -4,14 +4,14 @@ import ReactPaginate from "react-paginate";
 import Table from "../Components/Table";
 
 export default class Home extends PureComponent {
-    
+
     state = {
         offset: 0,
-        tableData:[],
+        tableData: [],
         originalData: [],
         perPage: 10,
         currentPage: 0
-        
+
     }
 
     handlePageClick = (e) => {
@@ -28,14 +28,14 @@ export default class Home extends PureComponent {
     };
 
     loadMoreData() {
-		const data = this.state.originalData;
-		
-		const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
-		this.setState({
-			pageCount: Math.ceil(data.length / this.state.perPage),
-			tableData: slice
-		})
-	
+        const data = this.state.originalData;
+
+        const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+        this.setState({
+            pageCount: Math.ceil(data.length / this.state.perPage),
+            tableData: slice
+        })
+
     }
 
 
@@ -48,30 +48,32 @@ export default class Home extends PureComponent {
         let slice = allIssues.slice(this.state.offset, this.state.offset + this.state.perPage);
 
         this.setState({
-            pageCount: Math.ceil(allIssues.length/this.state.perPage),
+            pageCount: Math.ceil(allIssues.length / this.state.perPage),
             originalData: allIssues,
             tableData: slice,
-            
+
         });
     }
     render() {
         return (
-            <div>
-                
+            <div id="bodyData">
+
                 <Table data={this.state} />
-                 <ReactPaginate
-                    previousLabel={"prev"}
-                    nextLabel={"next"}
-                    breakLabel={"..."}
-                    breakClassName={"break-me"}
-                    pageCount={this.state.pageCount}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={this.handlePageClick}
-                    containerClassName={"pagination"}
-                    subContainerClassName={"pages pagination"}
-                    activeClassName={"active"}
-                />
+                <div id="paginate">
+                    <ReactPaginate
+                        previousLabel={"prev"}
+                        nextLabel={"next"}
+                        breakLabel={"..."}
+                        breakClassName={"break-me"}
+                        pageCount={this.state.pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={this.handlePageClick}
+                        containerClassName={"pagination"}
+                        subContainerClassName={"pages pagination"}
+                        activeClassName={"active"}
+                    />
+                </div>
 
             </div>
         );
