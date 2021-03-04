@@ -15,9 +15,10 @@ export default class Home extends PureComponent {
     }
 
     handlePageClick = (e) => {
-        const selectedPage = e.selected;
-        const offset = selectedPage * this.state.perPage;
-
+        console.log(e.selected)
+        const selectedPage = e.selected; //starts at 0
+        const offset = selectedPage * this.state.perPage; // ex: if 2nd page selected, it would be 1 * 10
+        console.log(offset)
         this.setState({
             currentPage: selectedPage,
             offset: offset
@@ -29,7 +30,6 @@ export default class Home extends PureComponent {
 
     loadMoreData() {
         const data = this.state.originalData;
-
         const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
         this.setState({
             pageCount: Math.ceil(data.length / this.state.perPage),
@@ -47,6 +47,7 @@ export default class Home extends PureComponent {
         // this determines how many entries will be displayed on the page
         let slice = allIssues.slice(this.state.offset, this.state.offset + this.state.perPage);
 
+        //page count = total number of items divided by desired items per page.
         this.setState({
             pageCount: Math.ceil(allIssues.length / this.state.perPage),
             originalData: allIssues,
@@ -57,12 +58,11 @@ export default class Home extends PureComponent {
     render() {
         return (
             <div id="bodyData">
-
                 <Table data={this.state} />
                 <div id="paginate">
                     <ReactPaginate
-                        previousLabel={"prev"}
-                        nextLabel={"next"}
+                        previousLabel={"←"}
+                        nextLabel={"→"}
                         breakLabel={"..."}
                         breakClassName={"break-me"}
                         pageCount={this.state.pageCount}
@@ -74,7 +74,6 @@ export default class Home extends PureComponent {
                         activeClassName={"active"}
                     />
                 </div>
-
             </div>
         );
     }

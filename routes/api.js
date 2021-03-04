@@ -7,9 +7,6 @@ router.get("/api/getIssues", (req, res) => {
         let issues = data.data;
         res.json(issues);
     });
-    
-
-
 })
 
 module.exports = router;

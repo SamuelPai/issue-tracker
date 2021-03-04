@@ -3,22 +3,20 @@ const routes = require("./routes/api");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require('cors');
-// Configure body parsing for AJAX requests
+
+// Configure body parsing for AJAX requests, middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Serve up static assets
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
 
-var corsOptions = {
+let corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200,
   }
+
 app.use(cors(corsOptions)) 
 
-// Add routes, both API and view
+// API routes
 app.use(routes);
 
 // Start the API server

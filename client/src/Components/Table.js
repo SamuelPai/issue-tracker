@@ -1,9 +1,7 @@
 import React from 'react'
 
 export default function Table(props) {
-    function handleClick(data) {
-        console.log(data)
-    }
+    
     return (
         <React.Fragment>
             <table id="issueTable" border="1">
@@ -15,7 +13,7 @@ export default function Table(props) {
                 <tbody>
                     {
                         props.data.tableData.map((issue, i) => (
-                            <tr onClick={() => handleClick(issue)}>
+                            <tr>
                                 <td><button id="issueBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={"#test1"+i}>{issue.title}</button></td>
                                 <td class="td">{issue.number}</td>
                                 <td class="td">{issue.state}</td>
